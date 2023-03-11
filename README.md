@@ -1,11 +1,14 @@
-# django-todo-app
-Test todo-app on Django
+# Django Todo API
+Test todo app on Django
 
-Tech:
+### Project context
+
+#####Tech:
+- python 3.11.2
 - django 4.1.7
 - postgresql 13 (alpine)
 
-API functionality:
+#####API functionality:
 - registration & authentication by email with confirmation
 - user profile update
 - projects:
@@ -22,3 +25,30 @@ API functionality:
         - backlog
         - columns & tasks
 
+### Contribute
+In order to contribute follow these steps:
+
+1. clone the project
+```
+# https
+https://github.com/Ksiner/django-todo-app.git
+
+# ssh
+git@github.com:Ksiner/django-todo-app.git
+```
+
+2. init python venv
+```
+virtualenv --python="/usr/local/bin/python3" .venv
+
+# or
+
+python3 -m venv .venv
+```
+
+3. install python packages
+```
+pip install -r requirements.txt
+```
+
+4. Congratz, you're ready to go! Have a nice coding experience :)
