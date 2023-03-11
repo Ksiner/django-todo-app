@@ -1,0 +1,12 @@
+services:
+  postgres:
+    image: postgres:alpine3.17
+    environment:
+      POSTGRES_PASSWORD: root
+      POSTGRES_USER: postgres
+      POSTGRES_DB: django_todos
+      PGDATA: /var/lib/postgresql/data/pgdata
+    volumes:
+      - /var/lib/postgresql/data/pgdata
+    ports:
+      - 5432:5432
