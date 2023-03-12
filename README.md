@@ -28,7 +28,7 @@ Test todo app on Django
 ### Contribute
 In order to contribute follow these steps:
 
-1. clone the project
+1. Clone the project
 ```
 # https
 https://github.com/Ksiner/django-todo-app.git
@@ -37,7 +37,7 @@ https://github.com/Ksiner/django-todo-app.git
 git@github.com:Ksiner/django-todo-app.git
 ```
 
-2. init python venv
+2. Init python venv
 ```
 virtualenv --python="/usr/local/bin/python3" .venv
 
@@ -46,9 +46,27 @@ virtualenv --python="/usr/local/bin/python3" .venv
 python3 -m venv .venv
 ```
 
-3. install python packages
+3. Install python packages
 ```
 pip install -r requirements.txt
 ```
 
-4. Congratz, you're ready to go! Have a nice coding experience :)
+4. Before starting api server we need to run migrations firstly.
+in order to run migrations we need to set database connection configs via .env file at root folder of the project.
+Use `.env.example` for environment variables names list and fill them according to you localhost context
+<b>Hint: You can use docker-compose to bootstrap postgresql database service:</b>
+```
+docker-compose -p django-todo up -d
+```
+
+5. Now we can run the migrations themselves:
+```
+python manage.py migrate
+```
+
+6. Finally we're can start the api server
+```
+python manage.py
+```
+
+7. Congratz, you're ready to go! Have a nice coding experience :)
