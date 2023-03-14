@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib import admin
 from django.utils import timezone
 import datetime
 import json
@@ -14,6 +15,11 @@ class Question(models.Model):
             'pub_date': self.pub_date.isoformat(timespec='milliseconds'),
         })
 
+    @admin.display(
+        boolean=True,
+        ordering='pub_date',
+        description='Published Recently?',
+    )
     def was_published_recently(self) -> bool:
         now = timezone.now()
 
