@@ -15,18 +15,26 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path
+from rest_framework.schemas import get_schema_view
+from django.views.generic import TemplateView
 
-# from rest_framework import routers
-
-
-# router = routers.DefaultRouter()
-# router.register(
-#     r"snippets",
-# )
 
 urlpatterns = [
     path("admin", admin.site.urls),
     path("polls", include("polls.urls")),
-    path("api-auth/", include("rest_framework.urls", namespace="rest_framework")),
+    # path("api-auth/", include("rest_framework.urls", namespace="rest_framework")),
+    path(
+        "reference/openapi/api",
+        get_schema_view(
+            title="Todos Project",
+            description="OpenAPI Schema",
+            version="1.0.0",
+        ),
+        name="openapi-schema",
+    ),
+    path(
+        "reference/openapi/ui",
+        TemplateView.as_view(template_name="openapi/swagger-ui.html", extra_context={"schema_url": "openapi-schema"}),
+    ),
     path("", include("snippets.urls")),
 ]
