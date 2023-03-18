@@ -21,7 +21,8 @@ from django.views.generic import TemplateView
 
 urlpatterns = [
     path("admin", admin.site.urls),
-    path("polls", include("polls.urls")),
+    # path("polls", include("polls.urls")),
+    # path("", include("snippets.urls")),
     # path("api-auth/", include("rest_framework.urls", namespace="rest_framework")),
     path(
         "reference/openapi/api",
@@ -36,5 +37,4 @@ urlpatterns = [
         "reference/openapi/ui",
         TemplateView.as_view(template_name="openapi/swagger-ui.html", extra_context={"schema_url": "openapi-schema"}),
     ),
-    path("", include("snippets.urls")),
 ]
