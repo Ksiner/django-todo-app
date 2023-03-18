@@ -21,6 +21,7 @@ from django.views.generic import TemplateView
 
 urlpatterns = [
     path("admin", admin.site.urls),
+    path("users", include("users.urls")),
     # path("polls", include("polls.urls")),
     # path("", include("snippets.urls")),
     # path("api-auth/", include("rest_framework.urls", namespace="rest_framework")),
