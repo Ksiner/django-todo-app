@@ -47,6 +47,8 @@ INSTALLED_APPS = [
     "rest_framework_simplejwt",
     "rest_framework",
     "users.apps.UsersConfig",
+    "companies.apps.CompaniesConfig",
+    "company_members.apps.CompanyMembersConfig",
     # "polls.apps.PollsConfig",
     # "snippets.apps.SnippetsConfig",
 ]
@@ -154,4 +156,11 @@ SIMPLE_JWT = {
     "SIGNING_KEY": env(env_vars.JWT_SECRET.value),
     "AUDIENCE": "user",
     "ISSUER": "todo-app",
+}
+
+SWAGGER_SETTINGS = {
+    "SECURITY_DEFINITIONS": {
+        "Basic": {"type": "basic"},
+        "Bearer": {"type": "apiKey", "name": "Authorization", "in": "header"},
+    }
 }
