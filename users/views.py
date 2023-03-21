@@ -11,6 +11,7 @@ class UserRegisterView(generics.GenericAPIView):
     queryset = UserModel.objects.all()
     serializer_class = UserRegisterSerializer
     authentication_classes = []
+    permission_classes = []
 
     def post(self, request, *args, **kwargs):
         serializer = self.serializer_class(data=request.data)

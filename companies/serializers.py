@@ -22,7 +22,8 @@ class CompanySerializer(serializers.ModelSerializer):
         company.members.add(
             CompanyMemberModel(
                 user_id=creator_id, role=CompanyMemberRoles.ADMIN.value, joined_at=timezone.now(), company_id=company.id
-            )
+            ),
+            bulk=False,
         )
 
         return company

@@ -25,6 +25,10 @@ urlpatterns = [
     # path("polls", include("polls.urls")),
     # path("", include("snippets.urls")),
     # path("api-auth/", include("rest_framework.urls", namespace="rest_framework")),
-    path("reference/openapi/api", SpectacularAPIView.as_view(), name="schema"),
-    path("reference/openapi/ui", SpectacularSwaggerView.as_view(url_name="schema"), name="swagger-ui"),
+    path("reference/openapi/api", SpectacularAPIView.as_view(permission_classes=[]), name="schema"),
+    path(
+        "reference/openapi/ui",
+        SpectacularSwaggerView.as_view(url_name="schema", permission_classes=[]),
+        name="swagger-ui",
+    ),
 ]

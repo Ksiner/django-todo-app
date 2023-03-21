@@ -146,6 +146,7 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 REST_FRAMEWORK = {
     # "DEFAULT_PERMISSION_CLASSES": ["rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly"],
     "DEFAULT_AUTHENTICATION_CLASSES": ("rest_framework_simplejwt.authentication.JWTAuthentication",),
+    "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.IsAuthenticated",),
     "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
     "PAGE_SIZE": 10,
@@ -156,6 +157,8 @@ SPECTACULAR_SETTINGS = {
     "DESCRIPTION": "Sample TODOs API",
     "VERSION": "0.0.1",
     "SERVE_INCLUDE_SCHEMA": False,
+    "SERVE_PUBLIC": True,
+    "SERVE_PERMISSIONS": ["rest_framework.permissions.AllowAny", "rest_framework.permissions.IsAuthenticated"],
     # OTHER SETTINGS
 }
 
@@ -192,6 +195,10 @@ LOGGING = {
         "django.db.backends": {
             "level": "DEBUG",
             "handlers": ["console"],
-        }
+        },
+        "default": {
+            "level": "DEBUG",
+            "handlers": ["console"],
+        },
     },
 }
