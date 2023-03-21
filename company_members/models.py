@@ -17,7 +17,7 @@ class CompanyMemberModel(models.Model):
     role = models.CharField(
         choices=[(enum_item.name, enum_item.value) for enum_item in CompanyMemberRoles], null=False, max_length=32
     )
-    company = models.ForeignKey(CompanyModel, on_delete=models.CASCADE)
-    user = models.ForeignKey(UserModel, on_delete=models.CASCADE)
+    company = models.ForeignKey(CompanyModel, on_delete=models.CASCADE, related_name="members")
+    user = models.ForeignKey(UserModel, on_delete=models.CASCADE, related_name="user")
 
     joined_at = models.DateTimeField(null=False)

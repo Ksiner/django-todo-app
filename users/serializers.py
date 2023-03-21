@@ -2,6 +2,12 @@ from rest_framework import serializers
 from users.models import UserModel
 
 
+class PublicUserInfoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = UserModel
+        fields = ["id", "name", "email"]
+
+
 class UserRegisterSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserModel

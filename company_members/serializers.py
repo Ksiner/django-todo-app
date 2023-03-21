@@ -1,16 +1,10 @@
 from rest_framework import serializers
 from company_members.models import CompanyMemberModel
-from users.models import UserModel
-
-
-class CompanyMemberUserSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = UserModel
-        fields = ["id", "name", "email"]
+from users.serializers import PublicUserInfoSerializer
 
 
 class CompanyMemberSerializer(serializers.ModelSerializer):
-    user = CompanyMemberUserSerializer(read_only=True)
+    user = PublicUserInfoSerializer(read_only=True)
 
     class Meta:
         model = CompanyMemberModel

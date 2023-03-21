@@ -11,6 +11,7 @@ class CreateListCompanyView(generics.ListCreateAPIView):
     def get_queryset(self):
         user = self.request.user
 
-        return (
-            CompanyModel.objects.prefetch_related("companymembermodel").all().filter(companymembermodel__user=user.id)
-        )
+        return CompanyModel.objects.all().filter(members__user=user.id)
+
+    def perform_create(self, serializer: CompanySerializer):
+        serializer.save(creator=self.request.user.id)

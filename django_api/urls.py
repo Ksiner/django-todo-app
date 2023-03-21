@@ -15,11 +15,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path
-from rest_framework.schemas import get_schema_view
-from django.views.generic import TemplateView
-from rest_framework import permissions
 from rest_framework_simplejwt.authentication import JWTAuthentication
-from drf_spectacular.views import SpectacularAPIView, SpectacularRedocView, SpectacularSwaggerView
+from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
 
 urlpatterns = [
     path("admin", admin.site.urls),
