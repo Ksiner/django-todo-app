@@ -44,7 +44,7 @@ class RetrieveUpdateDestroyCompanyView(generics.RetrieveUpdateDestroyAPIView):
         return self.is_user_related_to_company(company_id=company_id, role=CompanyMemberRoles.ADMIN.value)
 
     def perform_update(self, serializer: CompanySerializer):
-        if self.can_update(company_id=serializer.data.id):
+        if self.can_update(company_id=serializer.instance.id):
             return serializer.save()
 
     def perform_destroy(self, instance: CompanyModel):
