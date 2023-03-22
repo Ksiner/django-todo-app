@@ -4,6 +4,6 @@ from companies.views import CreateListCompanyView, RetrieveUpdateDestroyCompanyV
 app_name = "companies"
 
 urlpatterns = [
-    path("", view=CreateListCompanyView.as_view()),
-    path("/<uuid:pk>", view=RetrieveUpdateDestroyCompanyView.as_view()),
+    path("", view=CreateListCompanyView.as_view(), name="index"),
+    path("/<uuid:pk>", view=RetrieveUpdateDestroyCompanyView.as_view(), name="detail"),
 ]

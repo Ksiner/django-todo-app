@@ -1,0 +1,26 @@
+[
+{
+    "model": "companies.companymodel",
+    "pk": "66ab263f-d0be-498f-9c1b-974ce17a633d",
+    "fields": {
+        "name": "My Company",
+        "created_at": "2023-03-22T06:59:36.888Z"
+    }
+},
+{
+    "model": "companies.companymodel",
+    "pk": "7eff46f2-a269-4bb0-9241-9413ffa7d609",
+    "fields": {
+        "name": "My Company 2",
+        "created_at": "2023-03-22T06:59:43.205Z"
+    }
+},
+{
+    "model": "companies.companymodel",
+    "pk": "fe940a86-c25f-4ad2-957d-cf2cf090ceda",
+    "fields": {
+        "name": "My Company 3",
+        "created_at": "2023-03-22T07:07:57.540Z"
+    }
+}
+]

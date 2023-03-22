@@ -1,0 +1,32 @@
+[
+{
+    "model": "company_members.companymembermodel",
+    "pk": "49c41434-d8e2-4cde-be17-c18860e46ad2",
+    "fields": {
+        "role": "member",
+        "company": "7eff46f2-a269-4bb0-9241-9413ffa7d609",
+        "user": 1,
+        "joined_at": "2023-03-22T06:59:43.209Z"
+    }
+},
+{
+    "model": "company_members.companymembermodel",
+    "pk": "5063c118-e659-445f-9d8e-d2209eb1c72a",
+    "fields": {
+        "role": "admin",
+        "company": "fe940a86-c25f-4ad2-957d-cf2cf090ceda",
+        "user": 2,
+        "joined_at": "2023-03-22T07:07:57.546Z"
+    }
+},
+{
+    "model": "company_members.companymembermodel",
+    "pk": "67b66b9d-cd18-465d-818a-8813004d1fd6",
+    "fields": {
+        "role": "admin",
+        "company": "66ab263f-d0be-498f-9c1b-974ce17a633d",
+        "user": 1,
+        "joined_at": "2023-03-22T06:59:36.892Z"
+    }
+}
+]
