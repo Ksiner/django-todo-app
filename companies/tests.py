@@ -16,6 +16,7 @@ class GetAuthorizedClientMixin:
 
 
 class CompanyListViewTests(TestCase, GetAuthorizedClientMixin):
+    viewname = "companies:index"
     fixtures = ["users_fixture.json", "companies_fixture.json", "company_members_fixture.json"]
     access_token = ""
     test_user = dict({"id": 1, "email": "user@example.com", "password": "test"})
@@ -34,7 +35,7 @@ class CompanyListViewTests(TestCase, GetAuthorizedClientMixin):
         self.access_token = parsed_response_content["access"]
 
     def test_get_companies_protected_with_authorization(self):
-        url = reverse("companies:index")
+        url = reverse(self.viewname)
         client = APIClient()
 
         response = client.get(url)
@@ -42,7 +43,7 @@ class CompanyListViewTests(TestCase, GetAuthorizedClientMixin):
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
 
     def test_create_company_protected_with_authorization(self):
-        url = reverse("companies:index")
+        url = reverse(self.viewname)
         client = APIClient()
 
         response = client.post(url)
@@ -50,7 +51,7 @@ class CompanyListViewTests(TestCase, GetAuthorizedClientMixin):
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
 
     def test_user_gets_only_companies_they_are_members_of(self):
-        url = reverse("companies:index")
+        url = reverse(self.viewname)
         client = self.get_authorized_client()
 
         user_companies = CompanyModel.objects.all().filter(members__user=self.test_user["id"])
@@ -67,7 +68,7 @@ class CompanyListViewTests(TestCase, GetAuthorizedClientMixin):
         self.assertLess(len(response_companies), len(all_companies))
 
     def test_company_is_created_with_calling_user_as_its_admin(self):
-        url = reverse("companies:index")
+        url = reverse(self.viewname)
         client = APIClient()
         test_company_name = "test company"
 
@@ -86,6 +87,7 @@ class CompanyListViewTests(TestCase, GetAuthorizedClientMixin):
 
 
 class CompanyDetailsViewTests(TestCase, GetAuthorizedClientMixin):
+    viewname = "companies:detail"
     fixtures = ["users_fixture.json", "companies_fixture.json", "company_members_fixture.json"]
     access_token = ""
     test_user = dict({"id": 1, "email": "user@example.com", "password": "test"})
@@ -107,7 +109,7 @@ class CompanyDetailsViewTests(TestCase, GetAuthorizedClientMixin):
         self.access_token = parsed_response_content["access"]
 
     def test_get_company_protected_with_authorization(self):
-        url = reverse("companies:detail", args=(self.test_admin_user_company_id,))
+        url = reverse(self.viewname, args=(self.test_admin_user_company_id,))
         client = APIClient()
 
         response = client.get(url)
@@ -115,7 +117,7 @@ class CompanyDetailsViewTests(TestCase, GetAuthorizedClientMixin):
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
 
     def test_delete_company_protected_with_authorization(self):
-        url = reverse("companies:detail", args=(self.test_admin_user_company_id,))
+        url = reverse(self.viewname, args=(self.test_admin_user_company_id,))
         client = APIClient()
 
         response = client.delete(url)
@@ -125,14 +127,14 @@ class CompanyDetailsViewTests(TestCase, GetAuthorizedClientMixin):
     def test_users_can_access_only_company_they_are_members_of(self):
         client = self.get_authorized_client()
 
-        correct_url = reverse("companies:detail", args=(self.test_admin_user_company_id,))
+        correct_url = reverse(self.viewname, args=(self.test_admin_user_company_id,))
         correct_response = client.get(correct_url)
         parsed_correct_response_data = json.loads(correct_response.content)
 
         self.assertEqual(correct_response.status_code, status.HTTP_200_OK)
         self.assertEqual(parsed_correct_response_data["id"], self.test_admin_user_company_id)
 
-        wrong_url = reverse("companies:detail", args=(self.test_alien_company_id,))
+        wrong_url = reverse(self.viewname, args=(self.test_alien_company_id,))
 
         wrong_get_response = client.get(wrong_url)
         self.assertEqual(wrong_get_response.status_code, status.HTTP_404_NOT_FOUND)
@@ -149,7 +151,7 @@ class CompanyDetailsViewTests(TestCase, GetAuthorizedClientMixin):
     def test_users_can_update_only_company_they_are_admins_of(self):
         client = self.get_authorized_client()
 
-        admin_company_url = reverse("companies:detail", args=(self.test_admin_user_company_id,))
+        admin_company_url = reverse(self.viewname, args=(self.test_admin_user_company_id,))
         admin_company_response = client.patch(admin_company_url, data={"name": "updated name"})
         admin_company_parsed_response = json.loads(admin_company_response.content)
         updated_company = CompanyModel.objects.filter(pk=self.test_admin_user_company_id).first()
@@ -158,7 +160,7 @@ class CompanyDetailsViewTests(TestCase, GetAuthorizedClientMixin):
         self.assertEqual(updated_company.name, "updated name")
         self.assertEqual(admin_company_parsed_response["name"], "updated name")
 
-        member_company_url = reverse("companies:detail", args=(self.test_member_user_company_id,))
+        member_company_url = reverse(self.viewname, args=(self.test_member_user_company_id,))
         member_company_response = client.patch(member_company_url)
         preserved_company = CompanyModel.objects.filter(pk=self.test_member_user_company_id).first()
 
@@ -168,14 +170,14 @@ class CompanyDetailsViewTests(TestCase, GetAuthorizedClientMixin):
     def test_users_can_delete_only_company_they_are_admins_of(self):
         client = self.get_authorized_client()
 
-        admin_company_url = reverse("companies:detail", args=(self.test_admin_user_company_id,))
+        admin_company_url = reverse(self.viewname, args=(self.test_admin_user_company_id,))
         admin_company_response = client.delete(admin_company_url)
         deleted_company = CompanyModel.objects.filter(pk=self.test_admin_user_company_id).first()
 
         self.assertEqual(admin_company_response.status_code, status.HTTP_204_NO_CONTENT)
         self.assertIsNone(deleted_company)
 
-        member_company_url = reverse("companies:detail", args=(self.test_member_user_company_id,))
+        member_company_url = reverse(self.viewname, args=(self.test_member_user_company_id,))
         member_company_response = client.delete(member_company_url)
         preserved_company = CompanyModel.objects.filter(pk=self.test_member_user_company_id).first()
 
